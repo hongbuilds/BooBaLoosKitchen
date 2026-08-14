@@ -32,7 +32,7 @@ This will also serve as my learning to design a clean and easy-to-read food/reci
 Follow these steps to run the project locally:
 
 ### Prerequisites
-- [Node.js](https://nodejs.org/) installed (version 16 or higher recommended)
+- [Node.js](https://nodejs.org/) installed (version 18 or higher; CI builds on Node 22)
 - [Git](https://git-scm.com/) installed (optional but helpful)
 
 ### Setup Instructions
@@ -71,5 +71,42 @@ Follow these steps to run the project locally:
 - `src/` - Contains the source code (components, styles, assets, etc.)
 - `public/` - Static assets available in the build
 - `vite.config.js` - Vite configuration file
+
+---
+
+## About security alerts
+
+GitHub will periodically flag "known security vulnerabilities" against this repo. Most of
+them don't matter here, and it's worth knowing why before reacting to a red banner.
+
+Dependencies split into two groups:
+
+- **Ships to visitors' browsers** — `react`, `react-dom`, `react-router-dom`,
+  `@radix-ui/*`, `lucide-react`, `@heroicons/react`. These are listed under
+  `dependencies` in `package.json`. Alerts here are real and worth fixing promptly.
+- **Runs only at build time** — `vite`, `eslint`, `rollup`, `@babel/*`, `postcss`,
+  `tailwindcss`, and their many helpers. These are listed under `devDependencies`.
+  This site deploys as static files to GitHub Pages, so no build tool is ever running
+  anywhere a stranger can reach. Alerts here are not exploitable against the live site.
+
+To see only what actually affects visitors:
+
+```bash
+npm audit --omit=dev
+```
+
+That's the number to care about. Plain `npm audit` includes the build tooling and will
+usually look scarier than the situation warrants.
+
+Most alerts resolve with:
+
+```bash
+npm audit fix
+```
+
+Dependabot (`.github/dependabot.yml`) also opens one grouped pull request per month with
+routine updates, and CI (`.github/workflows/ci.yml`) builds every push so a bad update
+can't land unnoticed. New advisories get published against healthy packages constantly —
+that's normal, not a sign something is wrong with this project.
 
 ---

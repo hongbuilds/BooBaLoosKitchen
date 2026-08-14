@@ -1,0 +1,13 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 3
+    groups:
+      # Batch all routine updates into a single PR per month.
+      # Major versions stay ungrouped so they arrive separately for review.
+      all-minor-patch:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
