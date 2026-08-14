@@ -1,5 +1,4 @@
 // src/components/ui/Button.jsx
-import React from 'react'
 import { Link } from 'react-router-dom'
 
 const variants = {

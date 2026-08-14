@@ -29,6 +29,18 @@ export default [
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
       'react/jsx-no-target-blank': 'off',
+
+      // This is a plain-JavaScript project with no TypeScript. Satisfying this
+      // rule would mean adding the `prop-types` package and a block of
+      // boilerplate to every component — and React 19 has deprecated
+      // PropTypes anyway, so it is boilerplate with no future.
+      'react/prop-types': 'off',
+
+      // Apostrophes in ordinary prose ("Melissa's", "BooBaLoo's") are not
+      // mistakes. On a recipe site this rule fires on nearly every new page
+      // of writing, so leaving it on guarantees recurring noise for no gain.
+      'react/no-unescaped-entities': 'off',
+
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
